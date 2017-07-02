@@ -15,6 +15,7 @@ target_divs = soup.find_all("div", class_="school-type-list-text")
 
 # declare lists
 county = []
+other = []
 schools = []
 students = []
 minority = []
@@ -23,26 +24,37 @@ minority = []
 # since target_divs is a list of divs, we need to loop over each item to 
 # perform any functions on the entire list
 for div in target_divs:
-    # counties = div.find("div", class_="table_cell_county")
-    # county.append(counties)
     county.append(div.find("div", class_="table_cell_county"))
 
-county = filter(None, county)
-for i in range(0, len(county)):
-    county[i] = county[i].text
+# use a loop to populate the 'other' list
+for div in target_divs:
+    other.append(div.find_all("div", class_="table_cell_other"))
 
-    # print county[0].find(text=True)
-    # counties.append(county[0].find(text=True))
-    # for c in counties:
-        # county.append(c.text.encode('utf-8'))
-    # other = div.find_all("div", class_="table_cell_other")
-    # schools.append(other[0].find(text=True))
+for each in other:
+    schools.append(each[0].text)
+    # students.append(each[1].text)
+    # minority.append(each[2].text)
+
+# print len(other)
+# other = filter(None, other)
+# print len(other)
+# print other
+
+#     for each in other:
+#         schools.append(other[0].find(text=True))
+#         students.append(other[1].find(text=True))
+#         minority.append(other[2].find(text=True))
+
+# county = filter(None, county)  # get rid of empty divs
+# for i in range(0, len(county)):  # overwrite county data with just the text
+#     county[i] = county[i].text
+
+    
     # for s in other:
         # schools.append(s[0].text.encode('utf-8'))
-    # students.append(other[1].find(text=True))
     # for t in other:
     #     students.append(s.text.encode('utf-8'))
-    # minority.append(other[2].find(text=True))
+    # 
     # for m in other:
     #     minority.append(s.text.encode('utf-8'))
 
@@ -53,6 +65,7 @@ for i in range(0, len(county)):
 # df['Minority'] = minority
 
 # print df
+
 
 # counties = []
 # other_data = []
