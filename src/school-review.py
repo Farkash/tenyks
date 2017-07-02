@@ -26,55 +26,36 @@ minority = []
 for div in target_divs:
     county.append(div.find("div", class_="table_cell_county"))
 
+county = filter(None, county)  # get rid of empty divs
+for i in range(0, len(county)):  # overwrite county data with just the text
+    county[i] = county[i].text
+
 # use a loop to populate the 'other' list
 for div in target_divs:
     other.append(div.find_all("div", class_="table_cell_other"))
 
+other = filter(None, other)
 for each in other:
-    schools.append(each[0].text)
-    # students.append(each[1].text)
-    # minority.append(each[2].text)
-
-# print len(other)
-# other = filter(None, other)
-# print len(other)
-# print other
-
-#     for each in other:
-#         schools.append(other[0].find(text=True))
-#         students.append(other[1].find(text=True))
-#         minority.append(other[2].find(text=True))
-
-# county = filter(None, county)  # get rid of empty divs
-# for i in range(0, len(county)):  # overwrite county data with just the text
-#     county[i] = county[i].text
-
-    
-    # for s in other:
-        # schools.append(s[0].text.encode('utf-8'))
-    # for t in other:
-    #     students.append(s.text.encode('utf-8'))
-    # 
-    # for m in other:
-    #     minority.append(s.text.encode('utf-8'))
+    schools.append(each[0].text.encode('utf-8'))
+    students.append(each[1].text.encode('utf-8'))
+    minority.append(each[2].text.encode('utf-8'))
 
 # print schools
-# df = pandas.DataFrame(counties, columns=['County'])
+# print students
+# print minority
+
+# string manip. Clean out "County", "Schools", "Students", and "Minority". Also convert minority to decimal
+# remove everything after the first space
+# 1. find the first space
+# 2. slice out everything after the first space
+# Something like county[0][0:find(' ')]
+print county[0][0:find(' ')]
+
+# df = pandas.DataFrame(county, columns=['County'])
 # df['Schools'] = schools
 # df['Students'] = students
 # df['Minority'] = minority
 
 # print df
 
-
-# counties = []
-# other_data = []
-# for div in target_divs:
-#     county = div.find_all("div", class_="table_cell_county")
-#     for c in county:
-#         counties.append(c.text.encode('utf-8'))
-#     other = div.find_all("div", class_="table_cell_other")
-#     for i in other:
-#         other_data.append(i.text.encode('utf-8'))
-
-# df.to_csv("india-test.csv", encoding = 'utf-8')
+# df.to_csv("/Users/Steve/Dropbox/tenyks/data/alabama_county_info.csv", encoding ='utf-8', index=False)
