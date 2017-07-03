@@ -1,6 +1,4 @@
 # parse through each county in each state and extract county-level summary data
-# parse through each county page to find each school in each county for
-# school-level data
 
 import urllib2
 from bs4 import BeautifulSoup
@@ -12,25 +10,24 @@ import pandas
 # make sure to add a state field based off the current state
 # append result frame from each state to master frame
 
-state_list = ["alabama"
-# , "alaska",
-#               "arizona", "arkansas",
-#               "california", "colorado",
-#               "connecticut", "delaware", "district-of-columbia",
-#               "florida", "georgia", "hawaii",
-#               "idaho", "illinois", "indiana", "iowa", "kansas",
-#               "kentucky", "louisiana",
-#               "maine", "maryland", "massachusetts", "michigan",
-#               "minnesota", "mississippi",
-#               "missouri", "montana", "nebraska", "nevada",
-#               "new-hampshire", "new-jersey",
-#               "new-mexico", "new-york", "north-carolina",
-#               "north-dakota", "ohio", "oklahoma",
-#               "oregon", "pennsylvania", "rhode-island",
-#               "south-carolina", "south-dakota",
-#               "tennessee", "texas", "utah", "vermont",
-#               "virginia", "washington",
-#               "west-virginia", "wisconsin", "wyoming"
+state_list = ["alabama", "alaska",
+              "arizona", "arkansas",
+              "california", "colorado",
+              "connecticut", "delaware", "district-of-columbia",
+              "florida", "georgia", "hawaii",
+              "idaho", "illinois", "indiana", "iowa", "kansas",
+              "kentucky", "louisiana",
+              "maine", "maryland", "massachusetts", "michigan",
+              "minnesota", "mississippi",
+              "missouri", "montana", "nebraska", "nevada",
+              "new-hampshire", "new-jersey",
+              "new-mexico", "new-york", "north-carolina",
+              "north-dakota", "ohio", "oklahoma",
+              "oregon", "pennsylvania", "rhode-island",
+              "south-carolina", "south-dakota",
+              "tennessee", "texas", "utah", "vermont",
+              "virginia", "washington",
+              "west-virginia", "wisconsin", "wyoming"
               ]
 
 big_frame = pandas.DataFrame(columns=['State', 'County', 'Schools',
@@ -62,10 +59,6 @@ for st in state_list:
     for i in range(0, len(county)):  # overwrite county data with just the text
         county[i] = county[i].text.encode('utf-8')
         county[i] = county[i][0:county[i].find(' ')]
-        # state[i] = state  # make column with the state for every county
-        # record
-
-    # print county
 
     # use a loop to populate the 'other' list
     for div in target_divs:
@@ -76,11 +69,8 @@ for st in state_list:
         schools.append(each[0].text.encode('utf-8'))
         students.append(each[1].text.encode('utf-8'))
         minority.append(each[2].text.encode('utf-8'))
-        state.append(st)
+        state.append(st.title())
 
-    # print len(schools)
-    # schools = filter(None, schools)  # get rid of empty divs
-    # print len(schools)
     for i in range(0, len(schools)):
         schools[i] = schools[i][0:schools[i].find(' ')]
 
@@ -107,12 +97,10 @@ for st in state_list:
     df['Students'] = students
     df['Minority'] = minority
 
-    print current_state
     big_frame = big_frame.append(df, ignore_index=True)
 
-# print df
-print big_frame
+# print big_frame
 
 # write final frame of all states out to csv
-# big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
-#                  encoding='utf-8', index=False)
+big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
+                 encoding='utf-8', index=False)
