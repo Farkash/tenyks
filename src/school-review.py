@@ -28,7 +28,10 @@ for div in target_divs:
 
 county = filter(None, county)  # get rid of empty divs
 for i in range(0, len(county)):  # overwrite county data with just the text
-    county[i] = county[i].text
+    county[i] = county[i].text.encode('utf-8')
+    county[i] = county[i][0:county[i].find(' ')]
+
+# print county
 
 # use a loop to populate the 'other' list
 for div in target_divs:
@@ -40,22 +43,32 @@ for each in other:
     students.append(each[1].text.encode('utf-8'))
     minority.append(each[2].text.encode('utf-8'))
 
+# print len(schools)
+# schools = filter(None, schools)  # get rid of empty divs
+# print len(schools)
+for i in range(0, len(schools)):
+    schools[i] = schools[i][0:schools[i].find(' ')]
+
+for i in range(0, len(students)):
+    students[i] = students[i][0:students[i].find(' ')]
+    students[i] = students[i].replace(',', '')
+
+for i in range(0, len(minority)):
+    minority[i] = minority[i][0:minority[i].find('%')]
+    if minority[i][0] == '-':
+        minority[i] = ''
+    if minority[i] != '':
+        minority[i] = float(minority[i]) / 100
+
 # print schools
 # print students
 # print minority
 
-# string manip. Clean out "County", "Schools", "Students", and "Minority". Also convert minority to decimal
-# remove everything after the first space
-# 1. find the first space
-# 2. slice out everything after the first space
-# Something like county[0][0:find(' ')]
-print county[0][0:find(' ')]
-
-# df = pandas.DataFrame(county, columns=['County'])
-# df['Schools'] = schools
-# df['Students'] = students
-# df['Minority'] = minority
+df = pandas.DataFrame(county, columns=['County'])
+df['Schools'] = schools
+df['Students'] = students
+df['Minority'] = minority
 
 # print df
 
-# df.to_csv("/Users/Steve/Dropbox/tenyks/data/alabama_county_info.csv", encoding ='utf-8', index=False)
+df.to_csv("/Users/Steve/Dropbox/tenyks/data/alabama_county_info.csv", encoding ='utf-8', index=False)
