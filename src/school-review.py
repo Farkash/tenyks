@@ -12,35 +12,34 @@ import pandas
 # make sure to add a state field based off the current state
 # append result frame from each state to master frame
 
-state_list = ["alabama", "alaska"
-              "arizona", "arkansas",
-              "california", "colorado",
-              "connecticut", "delaware"
-              # , "district-of-columbia"
-              # ,
-              # "florida", "georgia", "hawaii",
-              # "idaho", "illinois", "indiana", "iowa", "kansas",
-              # "kentucky", "louisiana",
-              # "maine", "maryland", "massachusetts", "michigan",
-              # "minnesota", "mississippi",
-              # "missouri", "montana", "nebraska", "nevada",
-              # "new-hampshire", "new-jersey",
-              # "new-mexico", "new-york", "north-carolina",
-              # "north-dakota", "ohio", "oklahoma",
-              # "oregon", "pennsylvania", "rhode-island",
-              # "south-carolina", "south-dakota",
-              # "tennessee", "texas", "utah", "vermont",
-              # "virginia", "washington",
-              # "west-virginia", "wisconsin", "wyoming"
+state_list = ["alabama"
+# , "alaska",
+#               "arizona", "arkansas",
+#               "california", "colorado",
+#               "connecticut", "delaware", "district-of-columbia",
+#               "florida", "georgia", "hawaii",
+#               "idaho", "illinois", "indiana", "iowa", "kansas",
+#               "kentucky", "louisiana",
+#               "maine", "maryland", "massachusetts", "michigan",
+#               "minnesota", "mississippi",
+#               "missouri", "montana", "nebraska", "nevada",
+#               "new-hampshire", "new-jersey",
+#               "new-mexico", "new-york", "north-carolina",
+#               "north-dakota", "ohio", "oklahoma",
+#               "oregon", "pennsylvania", "rhode-island",
+#               "south-carolina", "south-dakota",
+#               "tennessee", "texas", "utah", "vermont",
+#               "virginia", "washington",
+#               "west-virginia", "wisconsin", "wyoming"
               ]
 
-big_frame = pandas.DataFrame(columns=['County', 'Schools',
+big_frame = pandas.DataFrame(columns=['State', 'County', 'Schools',
                                       'Students', 'Minority'])
 
-for state in state_list:
-    url = 'https://www.privateschoolreview.com/%s' % state
-    state = urllib2.urlopen(url)
-    soup = BeautifulSoup(state, "lxml")
+for st in state_list:
+    url = 'https://www.privateschoolreview.com/%s' % st
+    opened_state = urllib2.urlopen(url)
+    soup = BeautifulSoup(opened_state, "lxml")
 
 # soup is one object here, not a list of objects, so we
 # can apply the find_all function to it once. Don't need to loop at all
@@ -48,7 +47,7 @@ for state in state_list:
 
     # declare lists
     county = []
-    # state = []
+    state = []
     other = []
     schools = []
     students = []
@@ -77,6 +76,7 @@ for state in state_list:
         schools.append(each[0].text.encode('utf-8'))
         students.append(each[1].text.encode('utf-8'))
         minority.append(each[2].text.encode('utf-8'))
+        state.append(st)
 
     # print len(schools)
     # schools = filter(None, schools)  # get rid of empty divs
@@ -99,19 +99,20 @@ for state in state_list:
     # print students
     # print minority
 
-    df = pandas.DataFrame(columns=['County', 'Schools',
+    df = pandas.DataFrame(columns=['State', 'County', 'Schools',
                                    'Students', 'Minority'])
-    # df['State'] = state
+    df['State'] = state
     df['County'] = county
     df['Schools'] = schools
     df['Students'] = students
     df['Minority'] = minority
 
+    print current_state
     big_frame = big_frame.append(df, ignore_index=True)
 
 # print df
 print big_frame
 
 # write final frame of all states out to csv
-big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
-                 encoding='utf-8', index=False)
+# big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
+#                  encoding='utf-8', index=False)
