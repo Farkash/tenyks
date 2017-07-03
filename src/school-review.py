@@ -1,13 +1,34 @@
+# parse through each county in each state and extract county-level summary data
+# parse through each county page to find each school in each county for school-level data
+
 import urllib2
 from bs4 import BeautifulSoup
 import pandas
-import csv
+# import csv
 
-page1 = 'https://www.privateschoolreview.com/alabama'
+# make a list of links, one per state
+# loop through the list applying all below
+# make sure to add a state field based off the current state
+# append result frame from each state to master frame
 
-alabama = urllib2.urlopen(page1)
+state_list = ["alabama", "alaska", "arizona", "arkansas", "california", "colorado",
+                "connecticut", "delaware", "district-of-colombia", "florida", "georgia", "hawaii",
+                "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana",
+                "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi",
+                "missouri", "montana", "nebraska", "nevada", "new-hampshire", "new-jersey",
+                "new-mexico", "new-york", "north-carolina", "north-dakota", "ohio", "oklahoma",
+                "oregon", "pennsylvania", "rhode-island", "south-carolina", "south-dakota",
+                "tennessee", "texas", "utah", "vermont", "virginia", "washington",
+                "west-virginia", "wisconsin", "wyoming"]
 
-soup = BeautifulSoup(alabama, "lxml")
+for state in state_list:
+    
+
+url = 'https://www.privateschoolreview.com/alabama'
+
+state = urllib2.urlopen(url)
+
+soup = BeautifulSoup(state, "lxml")
 
 # soup is one object here, not a list of objects, so we 
 # can apply the find_all function to it once. Don't need to loop at all
