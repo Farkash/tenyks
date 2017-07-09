@@ -86,63 +86,78 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Grades Offered" in details_list[f]:
                         grades_raw_list = details_list[f].split('\n')
-                        print "Grades offered: %s" % grades_raw_list[2]
+                        print "Grades offered: %r" % grades_raw_list[2]
+                        print grades_raw_list
                 for f in range(0, len(details_list)):
                     if "Total Students" in details_list[f]:
                         students_raw_list = details_list[f].split('\n')
-                        print "Total Students: %s" % students_raw_list[2]
+                        print "Total Students: %r" % students_raw_list[2]
+                        print students_raw_list
                 for f in range(0, len(details_list)):
                     if "Student Body Type" in details_list[f]:
                         body_type_raw_list = details_list[f].split('\n')
-                        print "Student Body Type: %s" % body_type_raw_list[2]
+                        print "Student Body Type: %r" % body_type_raw_list[2]
+                        print body_type_raw_list
                 for f in range(0, len(details_list)):
                     if "% Students of Color" in details_list[f]:
                         minority_raw_list = details_list[f].split('\n')
-                        print "Minority: %s" % minority_raw_list[2]        
+                        print "Minority: %r" % minority_raw_list[5]        
+                        print minority_raw_list
                 for f in range(0, len(details_list)):
                     if "Total Classroom Teachers" in details_list[f]:
                         teachers_raw_list = details_list[f].split('\n')
-                        print "Teachers: %s" % teachers_raw_list[2]          
+                        print "Teachers: %r" % teachers_raw_list[2]          
+                        print teachers_raw_list
                 for f in range(0, len(details_list)):
                     if "Student : Teacher Ratio" in details_list[f]:
                         stratio_raw_list = details_list[f].split('\n')
-                        print "S:T Ratio: %s" % stratio_raw_list[2]
+                        print "S:T Ratio: %r" % stratio_raw_list[2][0:stratio_raw_list[2].find('N')]
+                        print stratio_raw_list
                 for f in range(0, len(details_list)):
                     if "Religious Affiliation" in details_list[f]:
                         religious_raw_list = details_list[f].split('\n')
-                        print "Religious Affiliation: %s" % religious_raw_list[2]
+                        print "Religious Affiliation: %r" % religious_raw_list[2]
+                        print religious_raw_list
                 for f in range(0, len(details_list)):
                     if "Year Founded" in details_list[f]:
                         founded_raw_list = details_list[f].split('\n')
-                        print "Year Founded: %s" % founded_raw_list[2]
+                        print "Year Founded: %r" % founded_raw_list[2]
+                        print founded_raw_list
                 for f in range(0, len(details_list)):
-                    if "% Faculty w/Advanced Degree" in details_list[f]:
+                    if "Faculty w/Advanced Degree" in details_list[f]:
                         degree_raw_list = details_list[f].split('\n')
-                        print "% Faculty w/Advanced Degree: %r" % degree_raw_list[2]
+                        print "Faculty w/Advanced Degree: %r" % degree_raw_list[5]
+                        print degree_raw_list
                 for f in range(0, len(details_list)):
                     if "Average Class Size" in details_list[f]:
                         size_raw_list = details_list[f].split('\n')
-                        print "Average Class Size %s" % size_raw_list[2]
+                        print "Average Class Size: %r" % size_raw_list[2]
+                        print size_raw_list
                 for f in range(0, len(details_list)):
                     if "Average ACT score" in details_list[f]:
                         act_raw_list = details_list[f].split('\n')
-                        print "Average ACT score" % act_raw_list[2]
+                        print "Average ACT score: %r" % act_raw_list[2]
+                        print act_raw_list
                 for f in range(0, len(details_list)):
                     if "Yearly Tuition Cost" in details_list[f]:
                         tuition_raw_list = details_list[f].split('\n')
-                        print "Yearly Tuition Cost" % tuition_raw_list[2]
+                        print "Yearly Tuition Cost: %r" % tuition_raw_list[2][0:tuition_raw_list[2].find('V')]
+                        print tuition_raw_list
                 for f in range(0, len(details_list)):
                     if "Acceptance Rate" in details_list[f]:
                         acceptance_raw_list = details_list[f].split('\n')
-                        print "Acceptance Rate" % acceptance_raw_list[2]
+                        print "Acceptance Rate: %r" % acceptance_raw_list[5]
+                        print acceptance_raw_list
                 for f in range(0, len(details_list)):
                     if "Total Sports Offered" in details_list[f]:
                         sports_raw_list = details_list[f].split('\n')
-                        print "Total Sports Offered" % sports_raw_list[2]
+                        print "Total Sports Offered: %r" % sports_raw_list[2]
+                        print sports_raw_list
                 for f in range(0, len(details_list)):
                     if "Total Extracurriculars" in details_list[f]:
                         extra_raw_list = details_list[f].split('\n')
-                        print "Total Extracurriculars" % extra_raw_list[2]
+                        print "Total Extracurriculars: %r" % extra_raw_list[2]
+                        print extra_raw_list
                 
         
         # county_short[i] = county[i][0:county[i].find(' ')]
