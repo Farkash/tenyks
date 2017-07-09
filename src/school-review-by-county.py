@@ -2,6 +2,8 @@ import urllib2
 from bs4 import BeautifulSoup
 import pandas
 
+base_url = "https://www.privateschoolreview.com/"
+
 state_list = ["alabama"
 # , "alaska",
 #               "arizona", "arkansas",
@@ -31,7 +33,7 @@ state = []
 big_frame = pandas.DataFrame(columns=['State', 'County'])
 
 for st in state_list:
-    url = 'https://www.privateschoolreview.com/%s' % st
+    url = base_url + st
     opened_state = urllib2.urlopen(url)
     soup = BeautifulSoup(opened_state, "lxml")
 
@@ -49,10 +51,19 @@ for st in state_list:
         county[i] = county[i].text.encode('utf-8')
         # insert hyphen and lower county name and assemble county URL:
         # grep?
-        county_url = 'https://www.privateschoolreview.com/%s%s%s' % (st, "/", county[i].lower().replace(' ', '-'))
+        county_url = base_url + st + "/" + county[i].lower().replace(' ', '-')
         print county_url
         opened_county = urllib2.urlopen(county_url)
         county_soup = BeautifulSoup(opened_county, "lxml")
+        target_school_text = county_soup.find_all("div", class_="school-type-list-text")
+        school_url = []
+        for d in target_school_text:
+            if d.find("a", href=True) != None:
+                school_url.append(d.find("a", href=True)['href'])
+                print school_url
+        
+        
+        
         # county_short[i] = county[i][0:county[i].find(' ')]
 
 # grab the school detail within each county
