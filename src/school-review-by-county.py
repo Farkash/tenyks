@@ -49,14 +49,11 @@ for st in state_list:
     county = filter(None, county)  # get rid of empty divs
     for i in range(0, len(county)):  # overwrite county data with just the text
         county[i] = county[i].text.encode('utf-8')
-        # insert hyphen and lower county name and assemble county URL:
-        # grep?
         county_url = base_url + "/" + st + "/" + county[i].lower().replace(' ', '-')
         print county_url
         opened_county = urllib2.urlopen(county_url)
         county_soup = BeautifulSoup(opened_county, "lxml")
         target_school_text = county_soup.find_all("div", class_="school-type-list-text")
-        # school_url = []
         for d in target_school_text:
             if d.find("a", href=True) != None:
                 school_url = base_url + d.find("a", href=True)['href']
@@ -64,7 +61,18 @@ for st in state_list:
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
                 school_name = school_soup.find("h1", id="main-headline").text
+                street_address = school_soup.find("span", itemprop="streetAddress").text
+                city = school_soup.find("span", itemprop="addressLocality").text
+                state = school_soup.find("span", itemprop="addressRegion").text
+                zipcode = school_soup.find("span", itemprop="postalCode").text
+                phone = school_soup.find("div", class="top_card_ctn top_telephone_ctn").text
+                phone = phone[phone.find(' '):len(phone)]
+                website = school_soup.find("a", class="website_click").text
+                details_table = school_soup.find("div", id="school_details_table")
+                details_list = details_table.find_all("td", class="table_value_cell value_cell_1")
                 print school_name
+                print street_address
+                print details_list
         
         
         
