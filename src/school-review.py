@@ -1,37 +1,37 @@
-# parse through each county in each state and extract county-level summary data
-
 import urllib2
 from bs4 import BeautifulSoup
 import pandas
-# import csv
 
-# make a list of links, one per state
-# loop through the list applying all below
-# make sure to add a state field based off the current state
-# append result frame from each state to master frame
-
-state_list = ["alabama", "alaska",
-              "arizona", "arkansas",
-              "california", "colorado",
-              "connecticut", "delaware", "district-of-columbia",
-              "florida", "georgia", "hawaii",
-              "idaho", "illinois", "indiana", "iowa", "kansas",
-              "kentucky", "louisiana",
-              "maine", "maryland", "massachusetts", "michigan",
-              "minnesota", "mississippi",
-              "missouri", "montana", "nebraska", "nevada",
-              "new-hampshire", "new-jersey",
-              "new-mexico", "new-york", "north-carolina",
-              "north-dakota", "ohio", "oklahoma",
-              "oregon", "pennsylvania", "rhode-island",
-              "south-carolina", "south-dakota",
-              "tennessee", "texas", "utah", "vermont",
-              "virginia", "washington",
-              "west-virginia", "wisconsin", "wyoming"
+state_list = ["alabama"
+# , "alaska",
+#               "arizona", "arkansas",
+#               "california", "colorado",
+#               "connecticut", "delaware", "district-of-columbia",
+#               "florida", "georgia", "hawaii",
+#               "idaho", "illinois", "indiana", "iowa", "kansas",
+#               "kentucky", "louisiana",
+#               "maine", "maryland", "massachusetts", "michigan",
+#               "minnesota", "mississippi",
+#               "missouri", "montana", "nebraska", "nevada",
+#               "new-hampshire", "new-jersey",
+#               "new-mexico", "new-york", "north-carolina",
+#               "north-dakota", "ohio", "oklahoma",
+#               "oregon", "pennsylvania", "rhode-island",
+#               "south-carolina", "south-dakota",
+#               "tennessee", "texas", "utah", "vermont",
+#               "virginia", "washington",
+            #   "west-virginia", "wisconsin", "wyoming"
               ]
-
-big_frame = pandas.DataFrame(columns=['State', 'County', 'Schools',
-                                      'Students', 'Minority'])
+# declare lists
+    county = []
+    county_short = []
+    state = []
+    other = []
+    schools = []
+    students = []
+    minority = []
+    
+big_frame = pandas.DataFrame(columns=['State', 'County'])
 
 for st in state_list:
     url = 'https://www.privateschoolreview.com/%s' % st
@@ -42,14 +42,6 @@ for st in state_list:
 # can apply the find_all function to it once. Don't need to loop at all
     target_divs = soup.find_all("div", class_="school-type-list-text")
 
-    # declare lists
-    county = []
-    state = []
-    other = []
-    schools = []
-    students = []
-    minority = []
-
     # since target_divs is a list of divs, we need to loop over each item to
     # perform any functions on the entire list
     for div in target_divs:
@@ -58,7 +50,7 @@ for st in state_list:
     county = filter(None, county)  # get rid of empty divs
     for i in range(0, len(county)):  # overwrite county data with just the text
         county[i] = county[i].text.encode('utf-8')
-        county[i] = county[i][0:county[i].find(' ')]
+        county_short[i] = county[i][0:county[i].find(' ')]
 
     # use a loop to populate the 'other' list
     for div in target_divs:
