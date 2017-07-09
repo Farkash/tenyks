@@ -71,20 +71,79 @@ for st in state_list:
                 zipcode = school_soup.find("span", itemprop="postalCode").text
                 print zipcode
                 phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text
-                print phone
                 phone = phone[(phone.find(' ')+1):len(phone)]
                 print phone
-                website = school_soup.find("a", class_="website_click").text
+                website = school_soup.find("a", class_="website_click")
+                if website != None:
+                    website = website.text
                 print website
                 details_table = school_soup.find("div", id="school_details_table")
-                details_list = details_table.find_all("td", class_="table_value_cell value_cell_1")
+                details_list = details_table.find_all("tr", id='school_membership_row')
+                detail_list = filter(None, details_list)
                 for e in range(0, len(details_list)):
                     details_list[e] = details_list[e].text.encode('utf-8')
-                print details_list
-                # there are a different amount of tds with class_="table_value_cell value_cell_1"
-                # for each school, so I have to get more clever for parsing this table
-        
-        
+                # print details_list
+                for f in range(0, len(details_list)):
+                    if "Grades Offered" in details_list[f]:
+                        grades_raw_list = details_list[f].split('\n')
+                        print "Grades offered: %s" % grades_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Total Students" in details_list[f]:
+                        students_raw_list = details_list[f].split('\n')
+                        print "Total Students: %s" % students_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Student Body Type" in details_list[f]:
+                        body_type_raw_list = details_list[f].split('\n')
+                        print "Student Body Type: %s" % body_type_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "% Students of Color" in details_list[f]:
+                        minority_raw_list = details_list[f].split('\n')
+                        print "Minority: %s" % minority_raw_list[2]        
+                for f in range(0, len(details_list)):
+                    if "Total Classroom Teachers" in details_list[f]:
+                        teachers_raw_list = details_list[f].split('\n')
+                        print "Teachers: %s" % teachers_raw_list[2]          
+                for f in range(0, len(details_list)):
+                    if "Student : Teacher Ratio" in details_list[f]:
+                        stratio_raw_list = details_list[f].split('\n')
+                        print "S:T Ratio: %s" % stratio_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Religious Affiliation" in details_list[f]:
+                        religious_raw_list = details_list[f].split('\n')
+                        print "Religious Affiliation: %s" % religious_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Year Founded" in details_list[f]:
+                        founded_raw_list = details_list[f].split('\n')
+                        print "Year Founded: %s" % founded_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "% Faculty w/Advanced Degree" in details_list[f]:
+                        degree_raw_list = details_list[f].split('\n')
+                        print "% Faculty w/Advanced Degree: %r" % degree_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Average Class Size" in details_list[f]:
+                        size_raw_list = details_list[f].split('\n')
+                        print "Average Class Size %s" % size_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Average ACT score" in details_list[f]:
+                        act_raw_list = details_list[f].split('\n')
+                        print "Average ACT score" % act_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Yearly Tuition Cost" in details_list[f]:
+                        tuition_raw_list = details_list[f].split('\n')
+                        print "Yearly Tuition Cost" % tuition_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Acceptance Rate" in details_list[f]:
+                        acceptance_raw_list = details_list[f].split('\n')
+                        print "Acceptance Rate" % acceptance_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Total Sports Offered" in details_list[f]:
+                        sports_raw_list = details_list[f].split('\n')
+                        print "Total Sports Offered" % sports_raw_list[2]
+                for f in range(0, len(details_list)):
+                    if "Total Extracurriculars" in details_list[f]:
+                        extra_raw_list = details_list[f].split('\n')
+                        print "Total Extracurriculars" % extra_raw_list[2]
+                
         
         # county_short[i] = county[i][0:county[i].find(' ')]
 
