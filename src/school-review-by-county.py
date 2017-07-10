@@ -79,6 +79,7 @@ for st in state_list:
     county = filter(None, county)  # get rid of empty divs
     for i in range(0, len(county)):  # overwrite county data with just the text
         county[i] = county[i].text.encode('utf-8')
+    for i in range(0, len(county)):
         county_url = base_url + "/" + st + "/" + county[i].lower().replace(' ', '-')
         print county_url
         opened_county = urllib2.urlopen(county_url)
@@ -90,32 +91,34 @@ for st in state_list:
                 print school_url
                 psr_webpage_final.append(school_url)
                 state_full_final.append(st)
-                county_final.append(county)
+                county_final.append(county[i])
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
-                school_name = school_soup.find("h1", id="main-headline").text
+                school_name = school_soup.find("h1", id="main-headline").text.encode('utf-8')
                 print school_name
                 school_name_final.append(school_name)
-                street_address = school_soup.find("span", itemprop="streetAddress").text
+                street_address = school_soup.find("span", itemprop="streetAddress").text.encode('utf-8')
                 print street_address
                 street_final.append(street_address)
-                city = school_soup.find("span", itemprop="addressLocality").text
+                city = school_soup.find("span", itemprop="addressLocality").text.encode('utf-8')
                 print city
                 city_final.append(city)
-                state_short = school_soup.find("span", itemprop="addressRegion").text
+                state_short = school_soup.find("span", itemprop="addressRegion").text.encode('utf-8')
                 print state_short
                 state_final.append(state_short)
-                zipcode = school_soup.find("span", itemprop="postalCode").text
+                zipcode = school_soup.find("span", itemprop="postalCode").text.encode('utf-8')
                 print zipcode
-                zip_code_final.append(zip)
-                phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text
+                zip_code_final.append(zipcode)
+                phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text.encode('utf-8')
                 phone = phone[(phone.find(' ')+1):len(phone)]
                 print phone
                 phone_final.append(phone)
                 website = school_soup.find("a", class_="website_click")
                 if website != None:
-                    website = website.text
-                print website
+                    website = website.text.encode('utf-8')
+                    print website
+                else:
+                    website = ''
                 website_final.append(website)
                 details_table = school_soup.find("div", id="school_details_table")
                 details_list = details_table.find_all("tr", id='school_membership_row')
@@ -259,31 +262,31 @@ for st in state_list:
                         extracirricular = ''
                         extra_final.append(extracirricular)
                         
-                big_frame['State Full'] = state_full_final
-                big_frame['County'] = county_final
-                big_frame['School Name'] = school_name_final
-                big_frame['Street Address'] = street_final
-                big_frame['City'] = city_final
-                big_frame['State'] = state_final
-                big_frame['Zip Code'] = zip_code_final
-                big_frame['Phone Number'] = phone_final
-                big_frame['Website'] = website_final
-                big_frame['Grades Offered'] = grades_final
-                big_frame['Total Students'] = total_students_final
-                big_frame['Student Body Type'] = student_body_final
-                big_frame['Students of Color Percentage'] = minority_final
-                big_frame['Total Classroom Teachers'] = teachers_final
-                big_frame['Student-Teacher Ratio'] = s_t_ratio_final
-                big_frame['Religious Affiliation'] = religion_final
-                big_frame['Year Founded'] = year_founded_final
-                big_frame['Faculty with Advanced Degree Percentage'] = faculty_degree_final
-                big_frame['Average Class Size'] = class_size_final
-                big_frame['Average ACT Score'] = act_final
-                big_frame['Yearly Tuition Cost'] = tuition_final
-                big_frame['Acceptance Rate'] = acceptance_final
-                big_frame['Total Sports Offered'] = sports_final
-                big_frame['Total Extracurriculars'] = extra_final
-                print big_frame
+big_frame['State Full'] = state_full_final
+big_frame['County'] = county_final
+big_frame['School Name'] = school_name_final
+big_frame['Street Address'] = street_final
+big_frame['City'] = city_final
+big_frame['State'] = state_final
+big_frame['Zip Code'] = zip_code_final
+big_frame['Phone Number'] = phone_final
+big_frame['Website'] = website_final
+big_frame['Grades Offered'] = grades_final
+big_frame['Total Students'] = total_students_final
+big_frame['Student Body Type'] = student_body_final
+big_frame['Students of Color Percentage'] = minority_final
+big_frame['Total Classroom Teachers'] = teachers_final
+big_frame['Student-Teacher Ratio'] = s_t_ratio_final
+big_frame['Religious Affiliation'] = religion_final
+big_frame['Year Founded'] = year_founded_final
+big_frame['Faculty with Advanced Degree Percentage'] = faculty_degree_final
+big_frame['Average Class Size'] = class_size_final
+big_frame['Average ACT Score'] = act_final
+big_frame['Yearly Tuition Cost'] = tuition_final
+big_frame['Acceptance Rate'] = acceptance_final
+big_frame['Total Sports Offered'] = sports_final
+big_frame['Total Extracurriculars'] = extra_final
+# print big_frame
 
  
 # write final frame of all states out to csv
