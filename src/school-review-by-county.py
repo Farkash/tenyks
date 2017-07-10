@@ -132,135 +132,165 @@ for st in state_list:
                         grades_offered = grades_raw_list[2]
                         print grades_offered
                         grades_final.append(grades_offered)
+                        break
                     else:
-                        grades_offered = ''
-                        grades_final.append(grades_offered)
+                        if f == (len(detail_list)-1):
+                            grades_offered = ''
+                            grades_final.append(grades_offered)
                 for f in range(0, len(details_list)):
                     if "Total Students" in details_list[f]:
                         students_raw_list = details_list[f].split('\n')
                         total_students = students_raw_list[2]
                         print total_students
                         total_students_final.append(total_students)
+                        break
                     else:
-                        total_students = ''
-                        total_students_final.append(total_students)
+                        if f == (len(detail_list)-1):
+                            total_students = ''
+                            total_students_final.append(total_students)
                 for f in range(0, len(details_list)):
                     if "Student Body Type" in details_list[f]:
                         body_type_raw_list = details_list[f].split('\n')
                         student_body = body_type_raw_list[2]
                         print student_body
                         student_body_final.append(student_body)
+                        break
                     else:
-                        student_body = ''
-                        student_body_final.append(student_body)
+                        if f == (len(detail_list)-1):
+                            student_body = ''
+                            student_body_final.append(student_body)
                 for f in range(0, len(details_list)):
                     if "% Students of Color" in details_list[f]:
                         minority_raw_list = details_list[f].split('\n')
                         minority = minority_raw_list[5]
                         print minority
                         minority_final.append(minority)
+                        break
                     else:
-                        minority = ''
-                        minority_final.append(minority)
+                        if f == (len(detail_list)-1):
+                            minority = ''
+                            minority_final.append(minority)
                 for f in range(0, len(details_list)):
                     if "Total Classroom Teachers" in details_list[f]:
                         teachers_raw_list = details_list[f].split('\n')
                         teachers = teachers_raw_list[2]
                         print teachers
                         teachers_final.append(teachers)
+                        break
                     else:
-                        teachers = ''
-                        teachers_final.append(teachers)
+                        if f == (len(detail_list)-1):
+                            teachers = ''
+                            teachers_final.append(teachers)
                 for f in range(0, len(details_list)):
                     if "Student : Teacher Ratio" in details_list[f]:
                         stratio_raw_list = details_list[f].split('\n')
                         stratio = stratio_raw_list[2][0:stratio_raw_list[2].find('N')]
                         print stratio
                         s_t_ratio_final.append(stratio)
+                        break
                     else:
-                        stratio = ''
-                        s_t_ratio_final.append(stratio)
+                        if f == (len(detail_list)-1):
+                            stratio = ''
+                            s_t_ratio_final.append(stratio)
                 for f in range(0, len(details_list)):
                     if "Religious Affiliation" in details_list[f]:
                         religious_raw_list = details_list[f].split('\n')
                         religious = religious_raw_list[2]
                         print religious
                         religion_final.append(religious)
+                        break
                     else:
-                        religious = ''
-                        religion_final.append(religious)
+                        if f == (len(detail_list)-1):
+                            religious = ''
+                            religion_final.append(religious)
                 for f in range(0, len(details_list)):
                     if "Year Founded" in details_list[f]:
                         founded_raw_list = details_list[f].split('\n')
                         founded = founded_raw_list[2]
                         print founded
                         year_founded_final.append("founded")
+                        break
                     else:
-                        founded = ''
-                        year_founded_final.append("founded")
+                        if f == (len(detail_list)-1):
+                            founded = ''
+                            year_founded_final.append("founded")
                 for f in range(0, len(details_list)):
                     if "Faculty w/Advanced Degree" in details_list[f]:
                         degree_raw_list = details_list[f].split('\n')
                         degree = degree_raw_list[5]
                         print degree
                         faculty_degree_final.append(degree)
+                        break
                     else:
-                        degree = ''
-                        faculty_degree_final.append(degree)
+                        if f == (len(detail_list)-1):
+                            degree = ''
+                            faculty_degree_final.append(degree)
                 for f in range(0, len(details_list)):
                     if "Average Class Size" in details_list[f]:
                         size_raw_list = details_list[f].split('\n')
                         class_size = size_raw_list[2]
                         print class_size
                         class_size_final.append(class_size)
+                        break
                     else:
-                        class_size = ''
-                        class_size_final.append(class_size)
+                        if f == (len(detail_list)-1):
+                            class_size = ''
+                            class_size_final.append(class_size)
                 for f in range(0, len(details_list)):
                     if "Average ACT score" in details_list[f]:
                         act_raw_list = details_list[f].split('\n')
                         act_score = act_raw_list[2]
                         print act_score
                         act_final.append(act_score)
+                        break
                     else:
-                        act_score = ''
-                        act_final.append(act_score)
+                        if f == (len(detail_list)-1):
+                            act_score = ''
+                            act_final.append(act_score)
                 for f in range(0, len(details_list)):
                     if "Yearly Tuition Cost" in details_list[f]:
                         tuition_raw_list = details_list[f].split('\n')
                         tuition = tuition_raw_list[2][0:tuition_raw_list[2].find('V')]
                         print tuition
                         tuition_final.append(tuition)
+                        break
                     else:
-                        tuition = ''
-                        tuition_final.append(tuition)
+                        if f == (len(detail_list)-1):
+                            tuition = ''
+                            tuition_final.append(tuition)
                 for f in range(0, len(details_list)):
                     if "Acceptance Rate" in details_list[f]:
                         acceptance_raw_list = details_list[f].split('\n')
                         acceptance = acceptance_raw_list[5]
                         print acceptance
                         acceptance_final.append(acceptance)
+                        break
                     else:
-                        acceptance = ''
-                        acceptance_final.append(acceptance)
+                        if f == (len(detail_list)-1):
+                            acceptance = ''
+                            acceptance_final.append(acceptance)
                 for f in range(0, len(details_list)):
                     if "Total Sports Offered" in details_list[f]:
                         sports_raw_list = details_list[f].split('\n')
                         sports = sports_raw_list[2]
                         print sports
                         sports_final.append(sports)
+                        break
                     else:
-                        sports = ''
-                        sports_final.append(sports)
+                        if f == (len(detail_list)-1):
+                            sports = ''
+                            sports_final.append(sports)
                 for f in range(0, len(details_list)):
                     if "Total Extracurriculars" in details_list[f]:
                         extra_raw_list = details_list[f].split('\n')
                         extracirricular = extra_raw_list[2]
                         print extracirricular
                         extra_final.append(extracirricular)
+                        break
                     else:
-                        extracirricular = ''
-                        extra_final.append(extracirricular)
+                        if f == (len(detail_list)-1):
+                            extracirricular = ''
+                            extra_final.append(extracirricular)
                         
 big_frame['State Full'] = state_full_final
 big_frame['County'] = county_final
@@ -274,11 +304,11 @@ big_frame['Website'] = website_final
 big_frame['Grades Offered'] = grades_final
 big_frame['Total Students'] = total_students_final
 big_frame['Student Body Type'] = student_body_final
-big_frame['Students of Color Percentage'] = minority_final
+big_frame['Students of Color Percentage'] = minority_final #
 big_frame['Total Classroom Teachers'] = teachers_final
 big_frame['Student-Teacher Ratio'] = s_t_ratio_final
 big_frame['Religious Affiliation'] = religion_final
-big_frame['Year Founded'] = year_founded_final
+big_frame['Year Founded'] = year_founded_final #
 big_frame['Faculty with Advanced Degree Percentage'] = faculty_degree_final
 big_frame['Average Class Size'] = class_size_final
 big_frame['Average ACT Score'] = act_final
@@ -292,10 +322,4 @@ big_frame['Total Extracurriculars'] = extra_final
 # write final frame of all states out to csv
 # big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
 #                  encoding='utf-8', index=False)
-
-
-
-
-
-
 
