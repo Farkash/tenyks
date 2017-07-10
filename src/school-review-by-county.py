@@ -25,32 +25,34 @@ state_list = ["alabama"
             #   "west-virginia", "wisconsin", "wyoming"
               ]
 # declare lists
-state_full = []
 county = []
-county_short = []
-school_name = []
-street = []
-city = []
-state = []
-zip_code = []
-phone = []
-website = []
-psr_webpage = []
-grades = []
-total_students = []
-student_body = []
-minority = []
-teachers = []
-s_t_ratio =[]
-religion = []
-year_founded = []
-faculty_degree = []
-class_size = []
-act = []
-tuition = []
-acceptance = []
-sports = []
-extra = []
+
+state_full_final = []
+county_final = []
+county_short_final = []
+school_name_final = []
+street_final = []
+city_final = []
+state_final = []
+zip_code_final = []
+phone_final = []
+website_final = []
+psr_webpage_final = []
+grades_final = []
+total_students_final = []
+student_body_final = []
+minority_final = []
+teachers_final = []
+s_t_ratio_final =[]
+religion_final = []
+year_founded_final = []
+faculty_degree_final = []
+class_size_final = []
+act_final = []
+tuition_final = []
+acceptance_final = []
+sports_final = []
+extra_final = []
     
 big_frame = pandas.DataFrame(columns=['State Full', 'County', 'School Name', 'Street Address',
 'City', 'State', 'Zip Code', 'Phone Number', 'Website', 'Grades Offered', 
@@ -88,10 +90,12 @@ for st in state_list:
                 print school_url
                 psr_webpage.append(school_url)
                 state_full.append(st)
+                county_main.append(county)
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
                 school_name = school_soup.find("h1", id="main-headline").text
                 print school_name
+                school_name.append(school_name)
                 street_address = school_soup.find("span", itemprop="streetAddress").text
                 print street_address
                 city = school_soup.find("span", itemprop="addressLocality").text
