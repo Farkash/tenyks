@@ -25,12 +25,40 @@ state_list = ["alabama"
             #   "west-virginia", "wisconsin", "wyoming"
               ]
 # declare lists
+state_full = []
 county = []
 county_short = []
+school_name = []
+street = []
+city = []
 state = []
-
+zip_code = []
+phone = []
+website = []
+psr_webpage = []
+grades = []
+total_students = []
+student_body = []
+minority = []
+teachers = []
+s_t_ratio =[]
+religion = []
+year_founded = []
+faculty_degree = []
+class_size = []
+act = []
+tuition = []
+acceptance = []
+sports = []
+extra = []
     
-big_frame = pandas.DataFrame(columns=['State', 'County'])
+big_frame = pandas.DataFrame(columns=['State Full', 'County', 'School Name', 'Street Address',
+'City', 'State', 'Zip Code', 'Phone Number', 'Website', 'Grades Offered', 
+'Total Students', 'Student Body Type', 'Students of Color Percentage', 
+'Total Classroom Teachers', 'Student-Teacher Ratio', 'Religious Affiliation', 
+'Year Founded', 'Faculty with Advanced Degree Percentage', 'Average Class Size',
+'Average ACT Score', 'Yearly Tuition Cost', 'Acceptance Rate', 'Total Sports Offered',
+'Total Extracurriculars'])
 
 for st in state_list:
     url = base_url + "/" + st
@@ -58,6 +86,8 @@ for st in state_list:
             if d.find("a", href=True) != None:
                 school_url = base_url + d.find("a", href=True)['href']
                 print school_url
+                psr_webpage.append(school_url)
+                state_full.append(st)
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
                 school_name = school_soup.find("h1", id="main-headline").text
@@ -66,8 +96,8 @@ for st in state_list:
                 print street_address
                 city = school_soup.find("span", itemprop="addressLocality").text
                 print city
-                state = school_soup.find("span", itemprop="addressRegion").text
-                print state 
+                state_short = school_soup.find("span", itemprop="addressRegion").text
+                print state_short
                 zipcode = school_soup.find("span", itemprop="postalCode").text
                 print zipcode
                 phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text
@@ -160,21 +190,7 @@ for st in state_list:
                         print extra_raw_list
                 
         
-        # county_short[i] = county[i][0:county[i].find(' ')]
 
-# grab the school detail within each county
-    
-
-    # use a loop to populate the 'other' list
-    for div in target_divs:
-        other.append(div.find_all("div", class_="table_cell_other"))
-
-    other = filter(None, other)
-    for each in other:
-        schools.append(each[0].text.encode('utf-8'))
-        students.append(each[1].text.encode('utf-8'))
-        minority.append(each[2].text.encode('utf-8'))
-        state.append(st.title())
 
     
 
