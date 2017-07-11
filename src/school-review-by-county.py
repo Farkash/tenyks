@@ -102,25 +102,49 @@ for st in state_list:
                 county_final.append(county[i])
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
-                school_name = school_soup.find("h1", id="main-headline").text.encode('utf-8')
-                print school_name
-                school_name_final.append(school_name)
-                street_address = school_soup.find("span", itemprop="streetAddress").text.encode('utf-8')
-                print street_address
-                street_final.append(street_address)
-                city = school_soup.find("span", itemprop="addressLocality").text.encode('utf-8')
-                print city
-                city_final.append(city)
-                state_short = school_soup.find("span", itemprop="addressRegion").text.encode('utf-8')
-                print state_short
-                state_final.append(state_short)
-                zipcode = school_soup.find("span", itemprop="postalCode").text.encode('utf-8')
-                print zipcode
-                zip_code_final.append(zipcode)
-                phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text.encode('utf-8')
-                phone = phone[(phone.find(' ')+1):len(phone)]
-                print phone
-                phone_final.append(phone)
+                if school_soup.find("h1", id="main-headline") != None:
+                    school_name = school_soup.find("h1", id="main-headline").text.encode('utf-8')
+                    print school_name
+                    school_name_final.append(school_name)
+                else:
+                    school_name = ''
+                    school_name_final.append(school_name)
+                if school_soup.find("span", itemprop="streetAddress") != None:
+                    street_address = school_soup.find("span", itemprop="streetAddress").text.encode('utf-8')
+                    print street_address
+                    street_final.append(street_address)
+                else:
+                    street_address = ''
+                    street_final.append(street_address)
+                if school_soup.find("span", itemprop="addressLocality") != None:
+                    city = school_soup.find("span", itemprop="addressLocality").text.encode('utf-8')
+                    print city
+                    city_final.append(city)
+                else:
+                    city = ''
+                    city_final.append(city)
+                if school_soup.find("span", itemprop="addressRegion") != None:
+                    state_short = school_soup.find("span", itemprop="addressRegion").text.encode('utf-8')
+                    print state_short
+                    state_final.append(state_short)
+                else:
+                    state_short = ''
+                    state_final.append(state_short)
+                if school_soup.find("span", itemprop="postalCode") != None:
+                    zipcode = school_soup.find("span", itemprop="postalCode").text.encode('utf-8')
+                    print zipcode
+                    zip_code_final.append(zipcode)
+                else:
+                    zipcode = ''
+                    zip_code_final.append(zipcode)
+                if school_soup.find("div", class_="top_card_ctn top_telephone_ctn") != None:
+                    phone = school_soup.find("div", class_="top_card_ctn top_telephone_ctn").text.encode('utf-8')
+                    phone = phone[(phone.find(' ')+1):len(phone)]
+                    print phone
+                    phone_final.append(phone)
+                else:
+                    phone = ''
+                    phone_final.append(phone)
                 website = school_soup.find("a", class_="website_click")
                 if website != None:
                     website = website.text.encode('utf-8')
@@ -148,7 +172,7 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Total Students" in details_list[f]:
                         students_raw_list = details_list[f].split('\n')
-                        total_students = students_raw_list[2]
+                        total_students = students_raw_list[2][0:students_raw_list[2].find(' ')]
                         print total_students
                         total_students_final.append(total_students)
                         break
@@ -181,7 +205,7 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Total Classroom Teachers" in details_list[f]:
                         teachers_raw_list = details_list[f].split('\n')
-                        teachers = teachers_raw_list[2]
+                        teachers = teachers_raw_list[2][0:teachers_raw_list[2].find(' ')]
                         print teachers
                         teachers_final.append(teachers)
                         break
@@ -236,7 +260,7 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Average Class Size" in details_list[f]:
                         size_raw_list = details_list[f].split('\n')
-                        class_size = size_raw_list[2]
+                        class_size = size_raw_list[2][0:size_raw_list[2].find(' ')]
                         print class_size
                         class_size_final.append(class_size)
                         break
@@ -280,7 +304,7 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Total Sports Offered" in details_list[f]:
                         sports_raw_list = details_list[f].split('\n')
-                        sports = sports_raw_list[2]
+                        sports = sports_raw_list[2][0:sports_raw_list[2].find(' ')]
                         print sports
                         sports_final.append(sports)
                         break
@@ -291,7 +315,7 @@ for st in state_list:
                 for f in range(0, len(details_list)):
                     if "Total Extracurriculars" in details_list[f]:
                         extra_raw_list = details_list[f].split('\n')
-                        extracirricular = extra_raw_list[2]
+                        extracirricular = extra_raw_list[2][0:extra_raw_list[2].find(' ')]
                         print extracirricular
                         extra_final.append(extracirricular)
                         break
@@ -327,6 +351,7 @@ big_frame['Total Extracurriculars'] = extra_final
 
 # big_frame.to_csv("state_summary.csv",
 #                  encoding='utf-8', index=False)
+
 
 
 
