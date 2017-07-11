@@ -1,32 +1,31 @@
+from datetime import datetime
+startTime = datetime.now()
 import urllib2
 from bs4 import BeautifulSoup
 import pandas
 
 base_url = "https://www.privateschoolreview.com"
 
-state_list = ["alabama"
-# , "alaska",
-#               "arizona", "arkansas",
-#               "california", "colorado",
-#               "connecticut", "delaware", "district-of-columbia",
-#               "florida", "georgia", "hawaii",
-#               "idaho", "illinois", "indiana", "iowa", "kansas",
-#               "kentucky", "louisiana",
-#               "maine", "maryland", "massachusetts", "michigan",
-#               "minnesota", "mississippi",
-#               "missouri", "montana", "nebraska", "nevada",
-#               "new-hampshire", "new-jersey",
-#               "new-mexico", "new-york", "north-carolina",
-#               "north-dakota", "ohio", "oklahoma",
-#               "oregon", "pennsylvania", "rhode-island",
-#               "south-carolina", "south-dakota",
-#               "tennessee", "texas", "utah", "vermont",
-#               "virginia", "washington",
-            #   "west-virginia", "wisconsin", "wyoming"
+state_list = ["alabama", "alaska",
+              "arizona", "arkansas",
+              "california", "colorado",
+              "connecticut", "delaware", "district-of-columbia",
+              "florida", "georgia", "hawaii",
+              "idaho", "illinois", "indiana", "iowa", "kansas",
+              "kentucky", "louisiana",
+              "maine", "maryland", "massachusetts", "michigan",
+              "minnesota", "mississippi",
+              "missouri", "montana", "nebraska", "nevada",
+              "new-hampshire", "new-jersey",
+              "new-mexico", "new-york", "north-carolina",
+              "north-dakota", "ohio", "oklahoma",
+              "oregon", "pennsylvania", "rhode-island",
+              "south-carolina", "south-dakota",
+              "tennessee", "texas", "utah", "vermont",
+              "virginia", "washington",
+              "west-virginia", "wisconsin", "wyoming"
               ]
 # declare lists
-county = []
-
 state_full_final = []
 county_final = []
 county_short_final = []
@@ -73,12 +72,20 @@ for st in state_list:
 
     # since target_divs is a list of divs, we need to loop over each item to
     # perform any functions on the entire list
+    county = []
+    county_dirs = []
     for div in target_divs:
         county.append(div.find("div", class_="table_cell_county"))
-
+        
+    # for div in target_divs:
+    #     county_dirs.append(div.find("div", class_="table_cell_county"))
+    
     county = filter(None, county)  # get rid of empty divs
+    # county_dirs = county
     for i in range(0, len(county)):  # overwrite county data with just the text
+        # county_dirs[i] = county[i].find("a", href=True)['href']
         county[i] = county[i].text.encode('utf-8')
+        
     for i in range(0, len(county)):
         county_url = base_url + "/" + st + "/" + county[i].lower().replace(' ', '-')
         print county_url
@@ -322,4 +329,24 @@ big_frame['Total Extracurriculars'] = extra_final
 # write final frame of all states out to csv
 # big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
 #                  encoding='utf-8', index=False)
+
+totalTime = datetime.now() - startTime
+print totalTime
+
+# print big_frame.groupby('County').size()
+
+# not finding all in jefferson, madison, mobile, montgomery, 
+# too many in shelby (1), 
+
+
+
+
+
+
+
+
+
+
+
+
 
