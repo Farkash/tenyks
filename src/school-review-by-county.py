@@ -1,5 +1,3 @@
-from datetime import datetime
-startTime = datetime.now()
 import urllib2
 from bs4 import BeautifulSoup
 import pandas
@@ -76,18 +74,21 @@ for st in state_list:
     county_dirs = []
     for div in target_divs:
         county.append(div.find("div", class_="table_cell_county"))
-        
-    # for div in target_divs:
-    #     county_dirs.append(div.find("div", class_="table_cell_county"))
-    
     county = filter(None, county)  # get rid of empty divs
-    # county_dirs = county
+    
+    for div in target_divs:
+        county_dirs.append(div.find("div", class_="table_cell_county"))
+    county_dirs = filter(None, county_dirs)  # get rid of empty divs
+    
     for i in range(0, len(county)):  # overwrite county data with just the text
-        # county_dirs[i] = county[i].find("a", href=True)['href']
         county[i] = county[i].text.encode('utf-8')
+    
+    for k in range(0, len(county_dirs)):
+        county_dirs[k] = county_dirs[k].find("a", href=True)['href']
         
     for i in range(0, len(county)):
-        county_url = base_url + "/" + st + "/" + county[i].lower().replace(' ', '-')
+        # county_url = base_url + "/" + st + "/" + county[i].lower().replace(' ', '-')
+        county_url = base_url + county_dirs[i]
         print county_url
         opened_county = urllib2.urlopen(county_url)
         county_soup = BeautifulSoup(opened_county, "lxml")
@@ -97,7 +98,7 @@ for st in state_list:
                 school_url = base_url + d.find("a", href=True)['href']
                 print school_url
                 psr_webpage_final.append(school_url)
-                state_full_final.append(st)
+                state_full_final.append(st.title())
                 county_final.append(county[i])
                 opened_school = urllib2.urlopen(school_url)
                 school_soup = BeautifulSoup(opened_school, "lxml")
@@ -215,7 +216,7 @@ for st in state_list:
                         founded_raw_list = details_list[f].split('\n')
                         founded = founded_raw_list[2]
                         print founded
-                        year_founded_final.append("founded")
+                        year_founded_final.append(founded)
                         break
                     else:
                         if f == (len(detail_list)-1):
@@ -323,28 +324,9 @@ big_frame['Yearly Tuition Cost'] = tuition_final
 big_frame['Acceptance Rate'] = acceptance_final
 big_frame['Total Sports Offered'] = sports_final
 big_frame['Total Extracurriculars'] = extra_final
-# print big_frame
 
- 
-# write final frame of all states out to csv
-# big_frame.to_csv("/Users/Steve/Dropbox/tenyks/data/state_summary.csv",
+# big_frame.to_csv("state_summary.csv",
 #                  encoding='utf-8', index=False)
-
-totalTime = datetime.now() - startTime
-print totalTime
-
-# print big_frame.groupby('County').size()
-
-# not finding all in jefferson, madison, mobile, montgomery, 
-# too many in shelby (1), 
-
-
-
-
-
-
-
-
 
 
 
