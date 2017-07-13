@@ -1,6 +1,7 @@
 import urllib2
 from bs4 import BeautifulSoup
 import pandas
+import requests
 base_url = "https://www.privateschoolreview.com"
 state_list = ["alabama", "alaska", "arizona", "arkansas", "california", "colorado",
               "connecticut", "delaware", "district-of-columbia", "florida", "georgia", "hawaii",
